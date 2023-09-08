@@ -21,6 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             'drive_test = warmup_project.drive_test:main',
+            'drive_square = warmup_project.drive_square:main'
         ],
     },
 )
