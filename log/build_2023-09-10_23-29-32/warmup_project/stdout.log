@@ -1,0 +1,24 @@
+running develop
+running egg_info
+creating warmup_project.egg-info
+writing warmup_project.egg-info/PKG-INFO
+writing dependency_links to warmup_project.egg-info/dependency_links.txt
+writing entry points to warmup_project.egg-info/entry_points.txt
+writing requirements to warmup_project.egg-info/requires.txt
+writing top-level names to warmup_project.egg-info/top_level.txt
+writing manifest file 'warmup_project.egg-info/SOURCES.txt'
+reading manifest file 'warmup_project.egg-info/SOURCES.txt'
+writing manifest file 'warmup_project.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/lib/python3.10/site-packages/warmup-project.egg-link (link to .)
+Installing drive_square script to /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/lib/warmup_project
+Installing drive_test script to /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/lib/warmup_project
+Installing teleop script to /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/lib/warmup_project
+
+Installed /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/build/warmup_project
+running install_data
+creating /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/share/ament_index
+creating /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/share/ament_index/resource_index
+creating /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/share/ament_index/resource_index/packages
+copying resource/warmup_project -> /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/share/ament_index/resource_index/packages
+copying package.xml -> /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/share/warmup_project

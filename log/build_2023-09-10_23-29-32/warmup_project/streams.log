@@ -1,0 +1,30 @@
+[0.312s] Invoking command in '/home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/build/warmup_project': PYTHONPATH=/home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/build/warmup_project/prefix_override:/home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/build/warmup_project/build --no-deps install_data
+[0.444s] running develop
+[0.446s] /usr/lib/python3/dist-packages/setuptools/command/easy_install.py:158: EasyInstallDeprecationWarning: easy_install command is deprecated. Use build and pip and other standards-based tools.
+[0.446s]   warnings.warn(
+[0.447s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[0.447s]   warnings.warn(
+[0.525s] running egg_info
+[0.526s] creating warmup_project.egg-info
+[0.526s] writing warmup_project.egg-info/PKG-INFO
+[0.526s] writing dependency_links to warmup_project.egg-info/dependency_links.txt
+[0.526s] writing entry points to warmup_project.egg-info/entry_points.txt
+[0.526s] writing requirements to warmup_project.egg-info/requires.txt
+[0.526s] writing top-level names to warmup_project.egg-info/top_level.txt
+[0.526s] writing manifest file 'warmup_project.egg-info/SOURCES.txt'
+[0.527s] reading manifest file 'warmup_project.egg-info/SOURCES.txt'
+[0.527s] writing manifest file 'warmup_project.egg-info/SOURCES.txt'
+[0.528s] running build_ext
+[0.528s] Creating /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/lib/python3.10/site-packages/warmup-project.egg-link (link to .)
+[0.528s] Installing drive_square script to /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/lib/warmup_project
+[0.528s] Installing drive_test script to /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/lib/warmup_project
+[0.528s] Installing teleop script to /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/lib/warmup_project
+[0.529s] 
+[0.529s] Installed /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/build/warmup_project
+[0.529s] running install_data
+[0.529s] creating /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/share/ament_index
+[0.529s] creating /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/share/ament_index/resource_index
+[0.529s] creating /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/share/ament_index/resource_index/packages
+[0.529s] copying resource/warmup_project -> /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/share/ament_index/resource_index/packages
+[0.529s] copying package.xml -> /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/share/warmup_project
+[0.543s] Invoked command in '/home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/build/warmup_project' returned '0': PYTHONPATH=/home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/build/warmup_project/prefix_override:/home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/install/warmup_project/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/bentarr/ros2_ws/src/CompRobo-Warmup-Project/build/warmup_project/build --no-deps install_data
