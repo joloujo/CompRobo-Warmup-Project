@@ -23,7 +23,8 @@ setup(
             'drive_test = warmup_project.drive_test:main',
             'drive_square = warmup_project.drive_square:main',
             'teleop = warmup_project.teleop:main',
-            'follow_wall = warmup_project.follow_wall:main'
+            'follow_wall = warmup_project.follow_wall:main',
+            'obstacle_avoider = warmup_project.obstacle_avoider:main'
         ],
     },
 )
