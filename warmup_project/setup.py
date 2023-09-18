@@ -25,6 +25,7 @@ setup(
             'teleop = warmup_project.teleop:main',
             'follow_wall = warmup_project.follow_wall:main',
             'follow_person = warmup_project.follow_person:main',
+            'drive_square_action_client = warmup_project.action_client_test:main'
         ],
     },
 )
