@@ -25,8 +25,13 @@ endif()
 
 find_package(rosidl_default_generators REQUIRED)
 
-rosidl_generate_interfaces(${PROJECT_NAME}
+set(msg_files
   "action/Drivesquare.action"
+  "action/Followperson.action"
+  )
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  ${msg_files}
 )
 
 ament_package()

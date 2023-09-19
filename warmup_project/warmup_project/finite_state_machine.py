@@ -4,7 +4,17 @@ from geometry_msgs.msg import Twist, PoseArray, Pose, PointStamped
 from sensor_msgs.msg import LaserScan
 import numpy as np
 
-class FollowPerson(Node):
+import tty
+import select
+import sys
+import termios
+from geometry_msgs.msg import Vector3
+from collections import defaultdict
+from pynput import keyboard
+
+class FSM(Node):
+    state = "follow_person" 
+
     detection_width = 1
     detection_min_dist = 1.5 * -1
     detection_max_dist = -0.2
@@ -12,8 +22,12 @@ class FollowPerson(Node):
     max_lin_speed = 0.2
     max_ang_speed = 0.5
 
+    settings = termios.tcgetattr(sys.stdin)
+    key_states: defaultdict[str, bool] = defaultdict(lambda: False)
+    key = None
+
     def __init__(self):
-        super().__init__('follow_person') # type: ignore
+        super().__init__('finite_state_machine') # type: ignore
         # create publisher to control the neato
         self.neato_pub = self.create_publisher(Twist, "cmd_vel", 10)
         # create publisher to publish point cloud
@@ -23,10 +37,18 @@ class FollowPerson(Node):
         # create subscriber to get laser scan data
         self.scan_sub = self.create_subscription(LaserScan, "stable_scan", self.scan_callback, 10)
 
-        # create timer to run loop
-        self.create_timer(0.01, self.loop)
+        tty.setraw(sys.stdin.fileno())
+        listener = keyboard.Listener(
+            on_press=self.on_press,
+            on_release=self.on_release)
+        listener.start()
+        self.neato_pub = self.create_publisher(Twist, "cmd_vel", 10)
+        self.create_timer(0.01, self.run_loop)
         
     def scan_callback(self, scan):
+        if self.state != "follow_person":
+            return
+
         points_x, points_y = self.process_scan(scan)
         self.publish_point_cloud(points_x, points_y)
 
@@ -136,12 +158,51 @@ class FollowPerson(Node):
         # publish message
         self.neato_pub.publish(msg=msg)
 
-    def loop(self):
-        pass
+    def on_press(self, key):
+        if key == keyboard.Key.esc:
+            self.key_states["esc"] = True
+        try:
+            # print(f'alphanumeric key {key.char} pressed')
+            self.key_states[key.char] = True
+
+            if key.char == "r":
+                if self.state == "teleop":
+                    self.state = "follow_person"
+                else:
+                    self.state = "teleop"
+                print(self.state)
+        except AttributeError:
+            # print(f'special key {key} pressed')
+            pass
+
+    def on_release(self, key):
+        try:
+            # print(f'alphanumeric key {key.char} released')
+            self.key_states[key.char] = False
+        except:
+            # print(f'special key {key} released')
+            pass
+
+    def run_loop(self):
+        if self.state == "teleop":
+            fwd_vel = 0.0
+            rot_vel = 0.0
+            if self.key_states["esc"]:
+                # exit()
+                pass
+            if self.key_states["w"]:
+                fwd_vel = 0.5
+            if self.key_states["s"]:
+                fwd_vel = -0.5
+            if self.key_states["a"]:
+                rot_vel = 1.0
+            if self.key_states["d"]:
+                rot_vel = -1.0
+            self.neato_pub.publish(Twist(linear=Vector3(x=fwd_vel,y=0.0,z=0.0), angular=Vector3(x=0.0,y=0.0,z=rot_vel)))
 
 def main(args=None):
     rclpy.init(args=args)
-    node = FollowPerson()
+    node = FSM()
     rclpy.spin(node)
     rclpy.shutdown()
 

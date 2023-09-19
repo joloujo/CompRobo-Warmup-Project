@@ -3,6 +3,11 @@ from rclpy.node import Node
 from geometry_msgs.msg import Twist, PoseArray, Pose, PointStamped
 from sensor_msgs.msg import LaserScan
 import numpy as np
+from rclpy.action import ActionServer
+from time import sleep
+from threading import Thread
+
+from action_tutorials_interfaces.action import Followperson # type: ignore
 
 class FollowPerson(Node):
     detection_width = 1
@@ -11,6 +16,9 @@ class FollowPerson(Node):
 
     max_lin_speed = 0.2
     max_ang_speed = 0.5
+    
+    scan = None
+    new_scan = False
 
     def __init__(self):
         super().__init__('follow_person') # type: ignore
@@ -23,26 +31,21 @@ class FollowPerson(Node):
         # create subscriber to get laser scan data
         self.scan_sub = self.create_subscription(LaserScan, "stable_scan", self.scan_callback, 10)
 
-        # create timer to run loop
-        self.create_timer(0.01, self.loop)
+        self._action_server = ActionServer(
+            self,
+            Followperson,
+            'follow_person_action',
+            self.loop)
+        
+    def loop_thread(self, goal_handle):
+        t = Thread(target=self.loop, args=[goal_handle])
+        t.start()
         
     def scan_callback(self, scan):
-        points_x, points_y = self.process_scan(scan)
-        self.publish_point_cloud(points_x, points_y)
-
-        # ---------- Calculate center of mass ----------
-        # if no points are in the detection box, stop the neato
-        if len(points_x) == 0:
-            self.drive_neato(0.0, 0.0)
-            return
-        
-        # if there are points in the detection box, drive the neato towards the center of mass
-        center_x = np.mean(points_x)
-        center_y = np.mean(points_y)
-
-        self.publish_COM(center_x, center_y)
-
-        self.control(center_x, center_y)
+        self.scan = scan
+        self.new_scan = True
+        print("new scan")
+        return
 
     def process_scan(self, scan):
         # get raw data into numpy arrays
@@ -136,8 +139,34 @@ class FollowPerson(Node):
         # publish message
         self.neato_pub.publish(msg=msg)
 
-    def loop(self):
-        pass
+    def loop(self, goal_handle):
+        self.get_logger().info('Executing goal...')
+
+        while True:
+            while not self.new_scan:
+                print("waiting")
+                sleep(0.2)
+                pass
+            
+            print("executing goal")
+
+            self.new_scan = False
+
+            points_x, points_y = self.process_scan(self.scan)
+            self.publish_point_cloud(points_x, points_y)
+
+            # ---------- Calculate center of mass ----------
+            if len(points_x) == 0:
+                # if no points are in the detection box, stop the neato
+                self.drive_neato(0.0, 0.0)
+            else:
+                # if there are points in the detection box, drive the neato towards the center of mass
+                center_x = np.mean(points_x)
+                center_y = np.mean(points_y)
+
+                self.publish_COM(center_x, center_y)
+
+                self.control(center_x, center_y)
 
 def main(args=None):
     rclpy.init(args=args)

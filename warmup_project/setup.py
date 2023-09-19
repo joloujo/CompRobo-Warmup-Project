@@ -26,7 +26,9 @@ setup(
             'follow_wall = warmup_project.follow_wall:main',
             'obstacle_avoider = warmup_project.obstacle_avoider:main',
             'follow_person = warmup_project.follow_person:main',
-            'drive_square_action_client = warmup_project.action_client_test:main'
+            'drive_square_action_client = warmup_project.action_client_test:main',
+            'follow_person_action = warmup_project.follow_person_action:main',
+            'finite_state_machine = warmup_project.finite_state_machine:main'
         ],
     },
 )
