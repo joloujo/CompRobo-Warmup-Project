@@ -55,7 +55,7 @@ Here’s a visualization of it: \
 For obstacle detection, I simply use the 0° and 90° (to the left) LiDAR data points. The threshold for an obstacle to be detected is 1 meter away from the Neato. This approach is relatively limited, but the concepts for how to implement more advanced behaviors are still present.
 
 
-![wall follow gif](img/follow_wall.gif)
+![wall follow gif](img/avoid_obstacles.gif)
 
 
 
